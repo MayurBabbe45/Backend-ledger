@@ -15,8 +15,14 @@ const accountRoutes = require('./routes/account.routes');
 const transactionRoutes = require('./routes/transaction.route');
 
 // Use routes
+app.get('/', (req, res) => {
+    res.send('Welcome to the Banking API');
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/accounts', accountRoutes);
 app.use('/api/transactions', transactionRoutes);
+
+
 
 module.exports = app ;
