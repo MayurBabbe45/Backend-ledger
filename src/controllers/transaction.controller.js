@@ -143,7 +143,9 @@ async function createTransactionController(req, res) {
         session.endSession();
 
         // Send notification emails to both parties
-        await emailService.sendTransactionEmail(req.user.email, req.user.name, amount, fromUserAccount.accountNumber || fromUserAccount._id);
+        // Send notification emails to both parties (Fire-and-forget: remove the 'await' and catch errors silently)
+        emailService.sendTransactionEmail(req.user.email, req.user.name, amount, fromUserAccount.accountNumber || fromUserAccount._id)
+            .catch(err => console.error("Background email failed:", err.message));
 
         return res.status(201).json({
             message: 'Transaction completed successfully',
