@@ -21,6 +21,15 @@ const authRoutes = require('./routes/auth.routes');
 const accountRoutes = require('./routes/account.routes');
 const transactionRoutes = require('./routes/transaction.route');
 
+// Health check route
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Use routes
 app.get('/', (req, res) => {
     res.send('Welcome to the Banking API');
